@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddVaccine from "./addVaccien";
+import AddIlness from "./addIlness"
 import '../cssFiles/addMem.css'; // יבוא קובץ ה-CSS
 
 const AddMem = () => {
   const url = 'http://localhost:8080/api/members/';
   const navigate = useNavigate();
+  // const[AddCoronaDetails,setCoronaDetails]=useState(false);
+  // const [vaccineForm, setVaccineForm] = useState(false);
+  // const [ilnessForm, setIlnessForm] = useState(false);
+  const[memberId,setmemId]=useState(null);
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
@@ -16,12 +22,7 @@ const AddMem = () => {
     Phone: '',
     MobilePhone: ''
   });
-  const BackButton = () => {
-    const navigate = useNavigate();
-  }
-    const handleBack = () => {
-      navigate(-1); // מחזיר אחורה בהיסטוריה הניווט
-    };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +40,10 @@ const AddMem = () => {
       });
       if (response.status === 200) {
         alert('The member was added successfully');
-        navigate('/memberList');
+        setmemId(formData.IDNumber);
+        // setCoronaDetails(true);
+
+       
       }
     } catch (error) {
       console.error('Error:', error);
@@ -48,9 +52,9 @@ const AddMem = () => {
 
   return (
     <div className="add-member-container">
-         <button className="back-button" onClick={handleBack}>
-      Back
-    </button>
+      <button className="back-button" onClick={() => { navigate(-1) }}>
+        Back
+      </button>
       <h2>Add Member</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -93,6 +97,14 @@ const AddMem = () => {
           <button type="submit">Submit</button>
         </div>
       </form>
+      {/* {(AddCoronaDetails) ? (
+        <button onClick={() => { setVaccineForm(true) }}>add vaccine</button>,
+         <button onClick={() => { setIlnessForm(true) }}>add ilness</button>) : null
+      }
+
+
+      {(ilnessForm) ? <AddIlness setIlnessForm={setIlnessForm} memberId={memberId} /> : null}
+      {(vaccineForm) ? <AddVaccine setVaccineForm={setVaccineForm} memberId={memberId} /> : null} */}
     </div>
   );
 };

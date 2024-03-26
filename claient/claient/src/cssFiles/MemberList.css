@@ -63,33 +63,3 @@
 .more-details-button:hover {
     background-color: #4169e1;
 }
-.add-button {
-    padding: 2% 3%;
-    font-size: 6%;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add-button .icon {
-    margin-right: 6px;
-  }
-  
-  .add-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .add-button:focus {
-    outline: none;
-  }
-  
-  .add-button:active {
-    transform: translateY(1px);
-  }
-  

@@ -9,10 +9,7 @@ const MemberList = () => {
     const navigate = useNavigate();
 
 
-    const handleAdd = () => {
-     navigate("/addMember");
-    };
-  
+    
     useEffect(() => {
         fetch(`${url}`)
             .then(response => response.json())
@@ -28,9 +25,7 @@ const MemberList = () => {
                 ))) : <p>there is no members</p>
             }
             <Link to={"/addMember"}>add member |  </Link>
-            <button className="add-button" onClick={handleAdd}>
-      <i className="fas fa-plus icon"></i> Add
-    </button>
+           <button onClick={()=>{}}>add</button>
    
         </div>
 

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import AddVaccine from "./addVaccien";
+import AddIlness from "./addIlness";
 import '../cssFiles/member.css';
 
 const Member = () => {
@@ -8,6 +11,10 @@ const Member = () => {
     const memberId = location.state.Id;
     const [member, setMem] = useState();
     const [toUpdate, setToUpdate] = useState(false);
+    const[vaccineForm,setVaccineForm]=useState(false);
+    const[ilnessForm,setIlnessForm]=useState(false);
+    const[vaccines,setVaccines]=useState(null);
+    const[illness,setIlness]=useState(null);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -20,13 +27,17 @@ const Member = () => {
         mobile: '',
     });
     const [showCorona, setCorona] = useState(false);
-
+        const navigate = useNavigate();
+      
+      
     useEffect(() => {
         if (memberId) {
             fetch(`${url}/${memberId}`)
                 .then(response => response.json())
                 .then(data => {
                     setMem(data[0]);
+                    setIlness(data[1]);
+                    setVaccines(data[2]);
                     setFormData({
                         firstName: data.FirstName,
                         lastName: data.LastName,
@@ -76,12 +87,17 @@ const Member = () => {
             alert('An error occurred while updating member data');
         }
     };
-    // const vaccinationsArray = member.Vaccinations.split(', ')
+   
     return (
         <div className="member-container">
-            {console.log(member)}
+           <button className="back-button" onClick={()=>{navigate(-1)}}>
+                Back
+            </button>
+           
             {member && (
                 <div className="member-details">
+            {console.log(member)}
+                      <h2> {member.FirstName} details</h2>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="name">First Name:</label>
                         <input type="text" id="name" name="firstName" readOnly={!toUpdate} placeholder={formData.firstName || member.FirstName} onChange={handleChange} />
@@ -96,7 +112,7 @@ const Member = () => {
                         <label htmlFor="houseNO">House Number:</label>
                         <input type="text" id="houseNO" name="houseNO" readOnly={!toUpdate} value={formData.houseNO || member.AddressNumber} onChange={handleChange} />
                         <label htmlFor="birthDate">Birth Date:</label>
-                        <input type={(!toUpdate)?"text":"data"} id="birthDate" name="birthDate" readOnly={!toUpdate} value={ new Date(member.BirthDate).toLocaleDateString('en-US')} onChange={handleChange} />
+                        <input type={(!toUpdate) ? "text" : "data"} id="birthDate" name="birthDate" readOnly={!toUpdate} value={new Date(member.BirthDate).toLocaleDateString('en-US')} onChange={handleChange} />
                         <label htmlFor="phone">Phone:</label>
                         <input type="tel" id="phone" name="phone" readOnly={!toUpdate} value={formData.phone || member.Phone} onChange={handleChange} />
                         <label htmlFor="mobile">Mobile:</label>
@@ -104,16 +120,29 @@ const Member = () => {
                         {toUpdate && <button type="submit">Submit</button>}
                     </form>
                     <button onClick={handleUpdateClick}>{toUpdate ? 'Cancel Update' : 'Update My Details'}</button>
-                    {(member.Vaccinations || member.Illness) && <button onClick={() => setCorona(true)}>Show Corona Details</button>}
-                    
-                    {/* {showCorona && (
+                    {(vaccines || vaccines) && <button onClick={() => setCorona(true)}>Show Corona Details</button>}
+
+                    {showCorona && (
                         <div className="corona-details">
-                  
-                            {member.Vaccinations && <h4>Vaccinations: {vaccinationsArray&&vaccinationsArray.length>1&&
-                                // vaccinationsArray.map(v=>{<>{v}</>})}</h4>}
-                            {member.Illness && <h4>Illness: {member.Illness}</h4>}
+                            {vaccines && <h4>Vaccinations:<br/> 
+                            <label htmlFor="VaccinationDate">VaccinationDate:</label>,
+                            <input type="text" id="VaccinationDate" name="VaccinationDate"  value={vaccines.VaccinationDate}  />
+                            <label htmlFor="VaccineManufacturer">VaccineManufacturer:</label>,
+                            <input type="text" id="VaccineManufacturer" name="VaccineManufacturer"  value={vaccines.VaccineManufacturer}  />
+                        </h4>}
+                       {illness&&<> <label htmlFor="PositiveTestDate">PositiveTestDate:</label>,
+                            <input type="text" id="PositiveTestDate" name="PositiveTestDate"  value={vaccines.PositiveTestDate}  />
+                            <label htmlFor="RecoveryDate">RecoveryDate:</label>,
+                            <input type="text" id="RecoveryDate" name="RecoveryDate"  value={vaccines.RecoveryDate||"add your recover date"}  /></>
+                            }
                         </div>
-                    )} */}
+                    )}
+
+                    <button onClick={()=>{setVaccineForm(true)}}>add vaccine</button>
+                  {  (vaccineForm)?<AddVaccine   setVaccineForm={setVaccineForm} memberId={memberId}/>:null}
+
+              {   (!illness) ?<button onClick={()=>{setIlnessForm(true)}}>add ilness</button>:null}
+                  {  (ilnessForm)?<AddIlness    setIlnessForm={setIlnessForm} memberId={memberId}/>:null}
                 </div>
             )}
         </div>
