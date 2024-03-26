@@ -11,17 +11,21 @@ function App() {
         
             
        <Routes>
-       <Route exact path='/home' element={<Layout />}>
+       {/* <Route exact path='/home' element={<Layout />}>
               <Route index element={<Home />} />
               <Route  path="memberList" element={<MemberList />} />
             {/* </Route> */}
        {/* <Route path="/home" element={<Home />}>
             <Route path="memberList" element={<MemberList />} /> */}
-            {/* <Route path="/:status" element={<AddMember member={null}/>} />
-            <Route path="member/:name" element={<Member />} /> */}
-
-          </Route>
-
+            {/* <Route path="/:status" element={<AddMember member={null}/>} />*/}
+           
+{/* 
+          </Route>  */}
+          <Route path="/home" element={<Home /> } /> 
+          <Route path="/addMember" element={<AddMember />}/>
+          <Route path="/" element={<Home /> } /> 
+          <Route path="member/:name" element={<Member />} /> 
+          <Route  path="/memberList" element={<MemberList />} />
           {/* <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} /> */}
       </Routes>

@@ -10,9 +10,9 @@ const Home = () => {
     return (
         <>
             
-            <Link to={"memberList"}>member list  |  </Link>
-            {/* <Link to={"addMember/"}>add member |  </Link> */}
-            <Outlet />
+            <Link to={"/memberList"}>member list  |  </Link>
+             <Link to={"/addMember"}>add member |  </Link> 
+            {/* <Outlet /> */}
         </>
     );
 }

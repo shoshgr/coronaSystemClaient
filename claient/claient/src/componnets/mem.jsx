@@ -1,9 +1,12 @@
-import {React,useState,Link} from "react";
+import React, { useState } from 'react'; // שינוי כאן - הוספת סוגריים מסולסלים סביב React והוספת useState
+import { Link } from 'react-router-dom';
+import Member from './member';
 
-const Mem=(props)=>{
+const Mem = (props) => {
     console.log(props.mem);
-    const url= 'http://localhost:8080/api/members';
-    const member=props.mem;
+    const url = 'http://localhost:8080/api/members';
+    const member = props.mem;
+
     const deleteMember = (id) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this member?');
         if (!confirmDelete) {
@@ -19,23 +22,28 @@ const Mem=(props)=>{
             const updatedMembers = props.members.filter(member => member.id !== id);
             props.setMembers(updatedMembers);
             console.log('Member deleted successfully');
+            alert("Member deleted successfully")
         })
         .catch(error => {
             console.error('Error deleting member:', error);
         });
-    }
-    return(
-<div key={member.ID}>
-    <h1>{member.ID}</h1>
-    <h3>{member.FirstName}</h3>
-    <h2>{member.LastName}</h2>
-    <button onClick={() => deleteMember(member.ID)}>Delete</button>
-    <Link
-        to={`member/${member.ID}`}
-        state={{ Id: member.ID }}
-    >
-        more details
-    </Link>
-</div>);
-}
-export default Mem
+    };
+
+    return (
+        <div key={member.ID}>
+            <h1>{member.ID}</h1>
+            <h3>{member.FirstName}</h3>
+            <h2>{member.LastName}</h2>
+            <button onClick={() => deleteMember(member.ID)}>Delete</button>
+            <Link
+    to={`/member/${member.FirstName}`}
+    state={{ Id: member.ID }}
+>
+    more details
+</Link>
+           
+        </div>
+    );
+};
+
+export default Mem;
