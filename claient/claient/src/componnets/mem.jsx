@@ -1,6 +1,8 @@
 import React, { useState } from 'react'; // שינוי כאן - הוספת סוגריים מסולסלים סביב React והוספת useState
 import { Link } from 'react-router-dom';
 import Member from './member';
+import '../cssFiles/mem.css';
+
 
 const Mem = (props) => {
     console.log(props.mem);
@@ -19,7 +21,7 @@ const Mem = (props) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const updatedMembers = props.members.filter(member => member.id !== id);
+            const updatedMembers = props.members.filter(member => member.ID !== id);
             props.setMembers(updatedMembers);
             console.log('Member deleted successfully');
             alert("Member deleted successfully")
@@ -29,21 +31,23 @@ const Mem = (props) => {
         });
     };
 
-    return (
-        <div key={member.ID}>
-            <h1>{member.ID}</h1>
-            <h3>{member.FirstName}</h3>
-            <h2>{member.LastName}</h2>
-            <button onClick={() => deleteMember(member.ID)}>Delete</button>
-            <Link
-    to={`/member/${member.FirstName}`}
-    state={{ Id: member.ID }}
->
-    more details
-</Link>
-           
-        </div>
-    );
-};
+    
+        return (
+            <div className="member-card">
+              
+                <h3>{member.FirstName}</h3>
+                <h2>{member.LastName}</h2>
+                <div className="buttons-container">
+                    <button className="delete-button" onClick={() => deleteMember(member.ID)}>
+                        Delete
+                    </button>
+                    <Link to={`/member/${member.FirstName}`} state={{ Id: member.ID }}>
+                        <button className="details-button">More Details</button>
+                    </Link>
+                </div>
+            </div>
+        
+        );
+}
 
 export default Mem;

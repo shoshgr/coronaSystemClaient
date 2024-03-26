@@ -23,7 +23,7 @@ function App() {
           </Route>  */}
           <Route path="/home" element={<Home /> } /> 
           <Route path="/addMember" element={<AddMember />}/>
-          <Route path="/" element={<Home /> } /> 
+          <Route path="/" element={<MemberList /> } /> 
           <Route path="member/:name" element={<Member />} /> 
           <Route  path="/memberList" element={<MemberList />} />
           {/* <Route path="/" element={<Navigate to="/home" />} />
