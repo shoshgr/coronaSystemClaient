@@ -18,11 +18,18 @@ const AddIlness = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ilness), // שליחת אובייקט החיסון בפורמט JSON
             mode: 'cors'
-        }).then((res) => (res.status == 200)?(alert("The illness was successfully added"),props.setIlnessForm(false)):null).catch(err=>alert(err));
+        }).then((res) => {
+            if (res.status == 200) {
+                alert("The illness was successfully added");
+                props.setIlnessForm(false);
+                props.setIlness(ilness);
+       
+            }
+        }).catch(err => alert(err));
     }
 
     return (
-        <form onSubmit={addIlness}> 
+        <form onSubmit={addIlness}>
             <label htmlFor="PositiveTestDate">PositiveTestDate:</label>
             <input type="date" name="PositiveTestDate" id="PositiveTestDate" ref={PositiveTestDate} />
             <label htmlFor="RecoveryDate">RecoveryDate:</label>

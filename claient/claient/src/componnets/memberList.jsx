@@ -24,8 +24,8 @@ const MemberList = () => {
                     <Mem key={member.ID} mem={member} setMembers={setMembers} members={members} />
                 ))) : <p>there is no members</p>
             }
-            <Link to={"/addMember"}>add member |  </Link>
-           <button onClick={()=>{}}>add</button>
+            <Link to={"/addMember"}>add member   </Link>
+       
    
         </div>
 

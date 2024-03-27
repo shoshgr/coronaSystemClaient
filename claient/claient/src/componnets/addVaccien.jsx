@@ -18,18 +18,31 @@ const AddVaccine = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(vaccine), // שליחת אובייקט החיסון בפורמט JSON
             mode: 'cors'
-        }).then((res) => (res.status == 200)?(alert("The vaccine was successfully added"),props.Vaccinations, props.setVaccineForm(false)):null).catch(err=>alert(err));
-    }
+        }).then((res) => {
+            if (res.status == 200) {
+                alert("The vaccine was successfully added");
+                let arr = [];
+                props.vaccines.map(v => arr.push(v));
+                arr.push(vaccine);
+                props.setVaccines(arr);
+                props.setVaccineForm(false);
+            }else{
+                alert("ERROR while adding vaccine");
+            }
+        })
+            .catch(err => alert(err))
+    };
 
-    return (
-        <form onSubmit={addVaccine}> 
-            <label htmlFor="VaccinationDate">VaccinationDate:</label>
-            <input type="date" name="VaccinationDate" id="VaccinationDate" ref={vaccinationDateRef} />
-            <label htmlFor="VaccineManufacturer">VaccineManufacturer:</label>
-            <input type="text" id="VaccineManufacturer" name="VaccineManufacturer" ref={vaccineManufacturerRef} />
-            <button type="submit">submit</button>
-        </form>
-    );
+
+return (
+    <form onSubmit={addVaccine}>
+        <label htmlFor="VaccinationDate">VaccinationDate:</label>
+        <input type="date" name="VaccinationDate" id="VaccinationDate" ref={vaccinationDateRef} />
+        <label htmlFor="VaccineManufacturer">VaccineManufacturer:</label>
+        <input type="text" id="VaccineManufacturer" name="VaccineManufacturer" ref={vaccineManufacturerRef} />
+        <button type="submit">submit</button>
+    </form>
+);
 }
 
 export default AddVaccine;
