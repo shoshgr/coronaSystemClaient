@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AddVaccine from "./addVaccien";
-import AddIlness from "./addIlness"
 import '../cssFiles/addMem.css'; // יבוא קובץ ה-CSS
 
 const AddMem = () => {
   const url = 'http://localhost:8080/api/members/';
   const navigate = useNavigate();
-  // const[AddCoronaDetails,setCoronaDetails]=useState(false);
-  // const [vaccineForm, setVaccineForm] = useState(false);
-  // const [ilnessForm, setIlnessForm] = useState(false);
-  const[memberId,setmemId]=useState(null);
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
@@ -23,14 +17,32 @@ const AddMem = () => {
     MobilePhone: ''
   });
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const validatePhoneNumber = (number) => {
+    return /^\d+$/.test(number);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isValidPhone = validatePhoneNumber(formData.Phone);
+    const isValidMobilePhone = validatePhoneNumber(formData.MobilePhone);
+ ;
+
+    if (!isValidPhone) {
+      alert('Invalid Phone number. Please enter only digits.');
+      return;
+    }
+
+    if (!isValidMobilePhone) {
+      alert('Invalid Mobile Phone number. Please enter only digits.');
+      return;
+    }
+
+    
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -40,10 +52,7 @@ const AddMem = () => {
       });
       if (response.status === 200) {
         alert('The member was added successfully');
-        setmemId(formData.IDNumber);
-        // setCoronaDetails(true);
-
-       
+        navigate("/memberList");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -83,7 +92,7 @@ const AddMem = () => {
         </div>
         <div className="form-group">
           <label htmlFor="BirthDate">Birth Date:</label>
-          <input type="date" id="BirthDate" name="BirthDate" value={formData.BirthDate} onChange={handleChange} required />
+          <input type="date" id="BirthDate" name="BirthDate" value={formData.BirthDate} onChange={handleChange} max={new Date().toISOString().split('T')[0]} required />
         </div>
         <div className="form-group">
           <label htmlFor="Phone">Phone:</label>
@@ -97,16 +106,8 @@ const AddMem = () => {
           <button type="submit">Submit</button>
         </div>
       </form>
-      {/* {(AddCoronaDetails) ? (
-        <button onClick={() => { setVaccineForm(true) }}>add vaccine</button>,
-         <button onClick={() => { setIlnessForm(true) }}>add ilness</button>) : null
-      }
-
-
-      {(ilnessForm) ? <AddIlness setIlnessForm={setIlnessForm} memberId={memberId} /> : null}
-      {(vaccineForm) ? <AddVaccine setVaccineForm={setVaccineForm} memberId={memberId} /> : null} */}
     </div>
   );
 };
 
-export default AddMem
+export default AddMem;

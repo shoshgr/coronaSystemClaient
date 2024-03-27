@@ -63,3 +63,85 @@
 .more-details-button:hover {
     background-color: #4169e1;
 }
+.add-member-link {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color:  #4169e1;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-member-link:hover {
+    background-color:  #4169e1;
+}
+.member-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member-list-frame {
+    width: 100%;
+    height: 300px; /* גובה כללי לגלילה */
+    border: 1px solid #ccc;
+    /* overflow-y: scroll; אפשרות לגלילה פנימית */
+ 
+}
+h4{
+    margin-top: 10px;
+}
+.member-list-content {
+    padding: 10px;
+}
+.member-list-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+.member-list-scroll {
+    display: grid;
+    grid-template-columns: auto auto ;
+     /* מרווח בין האיברים בגריד */
+     gap: 10px;
+    width: 70%;
+    max-height: 450px; 
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+.add-member-link {
+    padding: 10px 20px;
+    background-color:  #4169e1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-member-link:hover {
+    background-color:  #4169e1;
+}
+
+.add-member-link {
+    padding: 10px 20px;
+    background-color: #4169e1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-member-link:hover {
+    background-color:  #4169e1;
+}
+

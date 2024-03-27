@@ -33,3 +33,28 @@
 .details-button:hover {
     background-color: #4169e1;
 }
+
+
+/* סגנון נוסף של הקומפוננטה כדי להשפיע על העיצוב */
+
+.member-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.member-card {
+    width: 90%; /* או ערך אחר לפי העיצוב שלך */
+    margin-bottom: 20px;
+}
+
+/* סגנון נוסף לקומפוננטה על מנת להשפיע על העיצוב */
+.member-card h3,
+.member-card h2 {
+    margin: 0;
+}
+
+.member-card .buttons-container {
+    display: flex;
+    justify-content: space-between;
+}

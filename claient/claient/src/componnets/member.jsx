@@ -50,7 +50,7 @@ const Member = () => {
                         phone: data.Phone,
                         mobile: data.MobilePhone,
                     });
-                })
+                }).then(res=>(res.status!=200)?alert("error while getting member details"):null)
                 .catch(error => console.error('Error fetching data:', error));
         }
     }, [memberId]);
@@ -61,6 +61,10 @@ const Member = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'mobile' && !/^\d+$/.test(value)) {
+            alert("mobile can only be numbers");
+            return;
+        }
         setFormData(prevState => ({
             ...prevState,
             [name]: value,
@@ -89,11 +93,12 @@ const Member = () => {
         }
     };
 
-    return (
+    return (<>
+    <button className="back-button" onClick={() => { navigate(-1) }}>
+    Back
+</button>
         <div className="member-container">
-            <button className="back-button" onClick={() => { navigate(-1) }}>
-                Back
-            </button>
+           
 
             {member && (
                 <div className="member-details">
@@ -121,7 +126,7 @@ const Member = () => {
                         {toUpdate && <button type="submit">Submit</button>}
                     </form>
                     <button onClick={handleUpdateClick}>{toUpdate ? 'Cancel Update' : 'Update My Details'}</button>
-                    {(vaccines || vaccines) && <button onClick={() => setCorona(true)}>Show Corona Details</button>}
+                    {(vaccines || vaccines) && <button onClick={() => setCorona(!showCorona)}>{showCorona?"hide corona details":"Show Corona Details"}</button>}
                     {console.log(vaccines)}
 
                     {(vaccines.length < 4) ? <button onClick={() => { setVaccineForm(true) }}>add vaccine</button> : null}
@@ -138,7 +143,7 @@ const Member = () => {
                 </div>
             )}
         </div>
-    );
+        </>);
 }
 
 export default Member;

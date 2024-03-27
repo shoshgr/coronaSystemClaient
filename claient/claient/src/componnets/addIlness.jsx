@@ -8,22 +8,37 @@ const AddIlness = (props) => {
     const addIlness = (e) => {
         e.preventDefault();
 
+        const positiveTestDateValue = PositiveTestDate.current.value;
+        const recoveryDateValue = RecoveryDate.current.value;
+        const currentDate = new Date().toISOString().split('T')[0]; // תאריך נוכחי בפורמט YYYY-MM-DD
+
+        // בדיקה שהתאריך של החלמה והתאריך של הבדיקה אינם אחרי התאריך הנוכחי
+        if (recoveryDateValue > currentDate || positiveTestDateValue > currentDate) {
+            alert("Dates cannot be after today's date.");
+            return;
+        }
+
+        // בדיקה שהתאריך של החלמה יהיה אחרי תאריך המחלה
+        if (recoveryDateValue <= positiveTestDateValue) {
+            alert("Recovery Date must be after Positive Test Date.");
+            return;
+        }
+
         const ilness = {
-            PositiveTestDate: PositiveTestDate.current.value, // קביעת תאריך החיסון על פי הערך שנמצא ב-Ref של התאריך
-            RecoveryDate: RecoveryDate.current.value // קביעת יצרן החיסון על פי הערך שנמצא ב-Ref של היצרן
+            PositiveTestDate: positiveTestDateValue,
+            RecoveryDate: recoveryDateValue
         }
 
         fetch(`${url}/corona/illness/${props.memberId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ilness), // שליחת אובייקט החיסון בפורמט JSON
+            body: JSON.stringify(ilness),
             mode: 'cors'
         }).then((res) => {
-            if (res.status == 200) {
+            if (res.status === 200) {
                 alert("The illness was successfully added");
                 props.setIlnessForm(false);
                 props.setIlness(ilness);
-       
             }
         }).catch(err => alert(err));
     }
@@ -34,9 +49,10 @@ const AddIlness = (props) => {
             <input type="date" name="PositiveTestDate" id="PositiveTestDate" ref={PositiveTestDate} />
             <label htmlFor="RecoveryDate">RecoveryDate:</label>
             <input type="date" id="RecoveryDate" name="RecoveryDate" ref={RecoveryDate} />
-            <button type="submit">submit</button>
+            <button type="submit">Submit</button>
         </form>
     );
 }
 
 export default AddIlness;
+
