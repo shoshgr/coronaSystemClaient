@@ -19,7 +19,7 @@ const AddIlness = (props) => {
         }
 
         // בדיקה שהתאריך של החלמה יהיה אחרי תאריך המחלה
-        if (recoveryDateValue <= positiveTestDateValue) {
+        if (recoveryDateValue&&recoveryDateValue <= positiveTestDateValue) {
             alert("Recovery Date must be after Positive Test Date.");
             return;
         }
