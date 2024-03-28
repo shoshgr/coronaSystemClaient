@@ -58,6 +58,7 @@ const AddMem = () => {
         alert("the Network respons was not ok , heck your details again");
       }
     } catch (error) {
+      alert(error);
       console.error('Error:', error);
     }
   };

@@ -72,7 +72,7 @@ const CoronaDetailes = (props) => {
                     <input type="text" id="RecoveryDate" name="RecoveryDate" readOnly={formData.RecoveryDate} value={formData.RecoveryDate && new Date(formData.RecoveryDate).toLocaleDateString('en-US') || "Add your recovery date"} />
                 </div>
             )}
-            {!props.illness.RecoveryDate && (
+            {props.illness &&!props.illness.RecoveryDate && (
                 <button onClick={() => { setAddDisplay(true) }}>Add Recovery Date</button>
             )}
             {addDisplay && (

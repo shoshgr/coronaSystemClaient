@@ -126,7 +126,7 @@ const Member = () => {
                         {toUpdate && <button type="submit">Submit</button>}
                     </form>
                     <button onClick={handleUpdateClick}>{toUpdate ? 'Cancel Update' : 'Update My Details'}</button>
-                    {(vaccines || vaccines) && <button onClick={() => setCorona(!showCorona)}>{showCorona?"hide corona details":"Show Corona Details"}</button>}
+                    {(vaccines&&vaccines.length || illness) && <button onClick={() => setCorona(!showCorona)}>{showCorona?"hide corona details":"Show Corona Details"}</button>}
                     {console.log(vaccines)}
 
                     {(vaccines.length < 4) ? <button onClick={() => { setVaccineForm(true) }}>add vaccine</button> : null}
