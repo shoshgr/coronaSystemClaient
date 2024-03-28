@@ -29,7 +29,7 @@ const AddMem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValidPhone = validatePhoneNumber(formData.Phone);
-    const isValidMobilePhone = validatePhoneNumber(formData.MobilePhone);
+    const isValidMobilePhone = validatePhoneNumber(formData.MobilePhone)||"";
  ;
 
     if (!isValidPhone) {
@@ -53,6 +53,9 @@ const AddMem = () => {
       if (response.status === 200) {
         alert('The member was added successfully');
         navigate("/memberList");
+      }
+      else{
+        alert("the Network respons was not ok , heck your details again");
       }
     } catch (error) {
       console.error('Error:', error);

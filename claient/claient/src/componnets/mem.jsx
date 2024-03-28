@@ -18,7 +18,7 @@ const Mem = (props) => {
             method: 'DELETE',
         })
         .then(response => {
-            if (!response.ok) {
+            if (response.status!=200) {
                 throw new Error('Network response was not ok');
             }
             const updatedMembers = props.members.filter(member => member.ID !== id);
@@ -27,6 +27,7 @@ const Mem = (props) => {
             alert("Member deleted successfully")
         })
         .catch(error => {
+            alert("member didnt deleted");
             console.error('Error deleting member:', error);
         });
     };
