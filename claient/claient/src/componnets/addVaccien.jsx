@@ -1,9 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 const AddVaccine = (props) => {
     const url = 'http://localhost:8080/api/members';
     const vaccinationDateRef = useRef();
     const vaccineManufacturerRef = useRef();
+    const [vaccineManufacturers] = useState([
+        "Pfizer",
+        "Moderna",
+        "Johnson & Johnson",
+        "AstraZeneca",
+        "Sinopharm",
+        "Sinovac",
+        "Sputnik V",
+        "Other"
+    ]);
 
     const addVaccine = (e) => {
         e.preventDefault();
@@ -43,14 +53,19 @@ const AddVaccine = (props) => {
 
     return (
         <form onSubmit={addVaccine}>
-            <label htmlFor="VaccinationDate">VaccinationDate:</label>
-            <input type="date" name="VaccinationDate" id="VaccinationDate" ref={vaccinationDateRef} />
-            <label htmlFor="VaccineManufacturer">VaccineManufacturer:</label>
-            <input type="text" id="VaccineManufacturer" name="VaccineManufacturer" ref={vaccineManufacturerRef} />
+            <label htmlFor="VaccinationDate">Vaccination Date:</label>
+            <input type="date" name="VaccinationDate" id="VaccinationDate" required ref={vaccinationDateRef} />
+            <label htmlFor="VaccineManufacturer">Vaccine Manufacturer:</label>
+            <select id="VaccineManufacturer" name="VaccineManufacturer" required ref={vaccineManufacturerRef}>
+                {vaccineManufacturers.map(manufacturer => (
+                    <option key={manufacturer} value={manufacturer}>{manufacturer}</option>
+                ))}
+            </select>
             <button type="submit">Submit</button>
         </form>
     );
 }
 
 export default AddVaccine;
+
 

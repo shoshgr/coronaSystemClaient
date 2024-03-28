@@ -33,6 +33,14 @@
     border-radius: 4px;
 }
 
+.member-details select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .member-details button {
     padding: 8px 16px;
     background-color: #3498db;
