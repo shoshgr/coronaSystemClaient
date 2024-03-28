@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Mem from "./mem";
+import Mem from "./memCard";
 import '../cssFiles/MemberList.css';
 
 const MemberList = () => {

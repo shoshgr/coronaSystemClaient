@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; // שינוי כאן - הוספת סוגריים מסולסלים סביב React והוספת useState
 import { Link } from 'react-router-dom';
-import Member from './member';
+import Member from './memberDetails';
 import '../cssFiles/mem.css';
 
 
@@ -12,7 +12,7 @@ const Mem = (props) => {
     const deleteMember = (id) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this member?');
         if (!confirmDelete) {
-            return; // משתמש ביטל את הפעולה, סיים את הפונקציה
+            return;
         }
         fetch(`${url}/${id}`, {
             method: 'DELETE',

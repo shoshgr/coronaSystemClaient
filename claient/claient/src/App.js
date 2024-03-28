@@ -3,7 +3,7 @@ import { BrowserRouter as Router,Navigate, Route, Routes } from 'react-router-do
 
 import MemberList from './componnets/memberList';
 
-import Member from './componnets/member'
+import Member from './componnets/memberDetails'
 import AddMember from './componnets/addMember'
 function App() {
   return (
